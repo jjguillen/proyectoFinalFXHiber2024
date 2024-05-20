@@ -90,7 +90,6 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.18.32</version>
-      <scope>provided</scope>
     </dependency>
     <!-- https://mvnrepository.com/artifact/jakarta.enterprise/jakarta.enterprise.cdi-api -->
     <dependency>
@@ -129,7 +128,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>org.example.proyectofinal/org.example.proyectofinal.HelloApplication</mainClass>
+              <mainClass>org.example.proyectofinal/org.example.proyectofinal.Principal</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>

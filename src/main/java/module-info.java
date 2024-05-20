@@ -11,8 +11,10 @@ module org.example.proyectofinal {
     requires jakarta.transaction;
     requires lombok;
 
-
     opens org.example.proyectofinal to javafx.fxml;
     exports org.example.proyectofinal;
     opens org.example.proyectofinal.entities;
+    opens org.example.proyectofinal.repositories;
+    exports org.example.proyectofinal.javafxcontrollers;
+    opens org.example.proyectofinal.javafxcontrollers to javafx.fxml;
 }
