@@ -2,8 +2,10 @@ package org.example.proyectofinal.javafxcontrollers;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.proyectofinal.Principal;
@@ -29,12 +31,17 @@ public class NuevoJuegoController implements Initializable {
     @FXML
     public ChoiceBox<Integer> pegi;
 
+    private ObservableList<Juego> juegos;
+
+    public void setListaJuegos(ObservableList<Juego> games) {
+        this.juegos = games;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<CategoriaJuego> olCategoria = categoria.getItems();
         olCategoria.addAll(CategoriaJuego.DEPORTIVO, CategoriaJuego.CONDUCCION,
-                CategoriaJuego.ESTRATEGIA, CategoriaJuego.MMO, CategoriaJuego.MMO,
+                CategoriaJuego.ESTRATEGIA, CategoriaJuego.MMO, CategoriaJuego.ROL,
                 CategoriaJuego.SHOOTER);
         categoria.setValue(CategoriaJuego.DEPORTIVO);
 
@@ -48,7 +55,7 @@ public class NuevoJuegoController implements Initializable {
     }
 
     @FXML
-    private void saveJuego() throws IOException {
+    private void saveJuego() throws IOException, NoSuchFieldException {
         //Insertar juego
         JuegoRepository juegoRepository = new JuegoRepository();
 
@@ -61,11 +68,11 @@ public class NuevoJuegoController implements Initializable {
 
         juegoRepository.closeSession();
 
-        //Podríamos recargar el tableview de juegos, sus datos
-
-
         //Cerrar ventana
         Stage stage = (Stage) nombre.getScene().getWindow();
         stage.close();
+
+        //Actualizamos la lista de juegos
+        juegos.add(juego);
     }
 }

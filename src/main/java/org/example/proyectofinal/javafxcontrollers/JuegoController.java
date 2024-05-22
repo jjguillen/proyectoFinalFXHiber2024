@@ -2,8 +2,11 @@ package org.example.proyectofinal.javafxcontrollers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
@@ -22,7 +25,7 @@ import javafx.stage.Stage;
 public class JuegoController implements Initializable {
 
     @FXML
-    private TableView<Juego> tableJuegos;
+    public TableView<Juego> tableJuegos;
 
     @FXML
     public TableColumn<Juego, Long> juegoId;
@@ -42,12 +45,10 @@ public class JuegoController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         //Llamar a Hibernate para traer los Juegos
         JuegoRepository jr = new JuegoRepository();
         List<Juego> juegos = jr.findAll();
 
-        //"id" es el nombre del atributo en la clase Juego
         juegoId.setCellValueFactory(new PropertyValueFactory<>("id"));
         juegoNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         juegoPlataforma.setCellValueFactory(new PropertyValueFactory<>("plataforma"));
@@ -55,6 +56,26 @@ public class JuegoController implements Initializable {
         juegoCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
 
         tableJuegos.setItems(FXCollections.observableArrayList(juegos));
+
+        //Modo selección de tabla
+        tableJuegos.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+        //Menú contextual
+        final ContextMenu contextMenu = new ContextMenu();
+        MenuItem itemDelete = new MenuItem("Borrar");
+        itemDelete.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                Juego juegoABorrar = tableJuegos.getSelectionModel().getSelectedItem();
+                System.out.println("Juego seleccionado: " + juegoABorrar);
+                jr.delete(juegoABorrar);
+                juegos.remove(juegoABorrar);
+                tableJuegos.setItems(FXCollections.observableArrayList(juegos));
+                tableJuegos.refresh();
+            }
+        });
+        MenuItem itemUpdate = new MenuItem("Modificar");
+        contextMenu.getItems().addAll(itemDelete, itemUpdate);
+        tableJuegos.setContextMenu(contextMenu);
 
     }
 
@@ -83,22 +104,11 @@ public class JuegoController implements Initializable {
         FXMLLoader loader = new FXMLLoader(Principal.class.getResource("new-juego-view.fxml"));
         newWindow.setScene(new Scene(loader.load()));
         newWindow.show();
-    }
 
-    @FXML
-    private void newJugador() throws IOException {
-        Stage newWindow = new Stage();
-        newWindow.setResizable(false);
-        newWindow.initModality(Modality.WINDOW_MODAL);
-        newWindow.initOwner(tableJuegos.getScene().getWindow());
-        newWindow.setTitle("Nuevo Jugador");
-        FXMLLoader loader = new FXMLLoader(Principal.class.getResource("new-jugador-view.fxml"));
-        newWindow.setScene(new Scene(loader.load()));
-        newWindow.show();
-    }
-
-    @FXML
-    private void newPartida() throws IOException {
+        //Le paso los juegos al nuevo controlador para que actualice la lista
+        NuevoJuegoController nuevoController = loader.getController();
+        nuevoController.setListaJuegos(tableJuegos.getItems());
 
     }
+
 }

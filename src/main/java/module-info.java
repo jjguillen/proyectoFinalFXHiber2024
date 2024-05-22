@@ -13,6 +13,7 @@ module org.example.proyectofinal {
 
     opens org.example.proyectofinal to javafx.fxml;
     exports org.example.proyectofinal;
+    exports org.example.proyectofinal.entities;
     opens org.example.proyectofinal.entities;
     opens org.example.proyectofinal.repositories;
     exports org.example.proyectofinal.javafxcontrollers;

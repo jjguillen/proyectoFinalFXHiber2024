@@ -1,11 +1,19 @@
 package org.example.proyectofinal.javafxcontrollers;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.example.proyectofinal.Principal;
 import org.example.proyectofinal.entities.Juego;
 import org.example.proyectofinal.entities.Jugador;
@@ -62,6 +70,22 @@ public class JugadorController implements Initializable  {
         jugadorPais.setCellValueFactory(new PropertyValueFactory<>("pais"));
         tableJugadores.setItems(FXCollections.observableArrayList(jugadores));
 
+        //Menú contextual
+        final ContextMenu contextMenu = new ContextMenu();
+        MenuItem itemDelete = new MenuItem("Borrar");
+        itemDelete.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                Jugador jugadorABorrar = tableJugadores.getSelectionModel().getSelectedItem();
+                jr.delete(jugadorABorrar);
+                jugadores.remove(jugadorABorrar);
+                tableJugadores.setItems(FXCollections.observableArrayList(jugadores));
+                tableJugadores.refresh();
+            }
+        });
+        MenuItem itemUpdate = new MenuItem("Modificar");
+        contextMenu.getItems().addAll(itemDelete, itemUpdate);
+        tableJugadores.setContextMenu(contextMenu);
+
     }
 
     @FXML
@@ -77,6 +101,23 @@ public class JugadorController implements Initializable  {
     @FXML
     private void toPartidas() throws IOException {
         Principal.setRoot("partidas-view");
+    }
+
+
+    @FXML
+    private void newJugador() throws IOException {
+        Stage newWindow = new Stage();
+        newWindow.setResizable(false);
+        newWindow.initModality(Modality.WINDOW_MODAL);
+        newWindow.initOwner(tableJugadores.getScene().getWindow());
+        newWindow.setTitle("Nuevo Jugador");
+        FXMLLoader loader = new FXMLLoader(Principal.class.getResource("new-jugador-view.fxml"));
+        newWindow.setScene(new Scene(loader.load()));
+        newWindow.show();
+
+        //Le paso los jugadores al nuevo controlador para que actualice la lista
+        NuevoJugadorController nuevoController = loader.getController();
+        nuevoController.setListaJugadores(tableJugadores.getItems());
     }
 
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.proyectofinal.javafxcontrollers.NuevaPartidaController">
+   <children>
+      <Button layoutX="478.0" layoutY="341.0" mnemonicParsing="false" onAction="#savePartida" text="Guardar" />
+      <Label layoutX="53.0" layoutY="32.0" text="NUEVA PARTIDA">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="53.0" layoutY="76.0" text="Fecha" />
+      <DatePicker fx:id="fecha" layoutX="122.0" layoutY="72.0" />
+      <Label layoutX="53.0" layoutY="118.0" text="Duracion" />
+      <TextField fx:id="duracion" layoutX="122.0" layoutY="114.0" prefHeight="25.0" prefWidth="266.0" />
+      <Label layoutX="54.0" layoutY="209.0" text="Juego" />
+      <ChoiceBox fx:id="juego" layoutX="122.0" layoutY="205.0" prefHeight="25.0" prefWidth="234.0" />
+      <Label layoutX="54.0" layoutY="163.0" text="Ganador" />
+      <ChoiceBox fx:id="ganador" layoutX="122.0" layoutY="159.0" prefHeight="25.0" prefWidth="234.0" />
+
+      
+   </children>
+</AnchorPane>

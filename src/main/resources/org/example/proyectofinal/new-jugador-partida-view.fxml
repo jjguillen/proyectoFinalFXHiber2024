@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="TOP_CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.proyectofinal.javafxcontrollers.AddJugadorPartidaController">
+<children>
+            <Label layoutX="53.0" layoutY="32.0" text="AÑADIR JUGADORES">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <VBox>
+         <children>
+            <TableView fx:id="tableJugadores" minHeight="520">
+               <columns>
+                  <TableColumn fx:id="jugadorId" prefWidth="50.0" text="Id" />
+                  <TableColumn fx:id="jugadorNombre" prefWidth="175.0" text="Nombre" />
+                  <TableColumn fx:id="jugadorNick" prefWidth="100.0" text="Nick" />
+                  <TableColumn fx:id="jugadorEdad" prefWidth="50.0" text="Edad" />
+                  <TableColumn fx:id="jugadorEmail" prefWidth="200.0" text="Email" />
+                  <TableColumn fx:id="jugadorIdioma" prefWidth="100.0" text="Idioma" />
+                  <TableColumn fx:id="jugadorPais" prefWidth="100.0" text="Pais" />
+               </columns>
+            </TableView>
+         </children>
+      </VBox>
+   <Button layoutX="478.0" layoutY="341.0" mnemonicParsing="false" onAction="#addJugadorPartida" text="Guardar" />
+   </children>
+</VBox>

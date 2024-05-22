@@ -22,8 +22,9 @@ public class Principal extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Principal.class.getResource("juegos-view.fxml"));
-        scene = new Scene(fxmlLoader.load(), 1024, 800);
-        stage.setTitle("PARTIDAS");
+        scene = new Scene(fxmlLoader.load(), 1024, 600);
+        stage.setResizable(false);
+        stage.setTitle("PARTIDAS DE VIDEOJUEGOS");
         stage.setScene(scene);
         stage.show();
     }

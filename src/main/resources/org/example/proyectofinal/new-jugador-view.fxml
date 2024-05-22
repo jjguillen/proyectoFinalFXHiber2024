@@ -24,7 +24,7 @@
       <TextField fx:id="idioma" layoutX="122.0" layoutY="236.0" prefHeight="25.0" prefWidth="266.0" />
       <TextField fx:id="pais" layoutX="122.0" layoutY="278.0" prefHeight="25.0" prefWidth="266.0" />
       <Label layoutX="53.0" layoutY="324.0" text="Juego preferido" />
-      <ChoiceBox layoutX="154.0" layoutY="320.0" prefHeight="25.0" prefWidth="234.0" />
+      <ChoiceBox fx:id="juegoPreferido" layoutX="154.0" layoutY="320.0" prefHeight="25.0" prefWidth="234.0" />
       
    </children>
 </AnchorPane>
