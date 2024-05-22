@@ -32,7 +32,7 @@ public class Partida {
     @ManyToOne
     private Jugador ganador;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "partidas_jugadores",
             joinColumns = @JoinColumn(name = "partida_id"),

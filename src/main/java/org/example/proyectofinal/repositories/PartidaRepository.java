@@ -2,6 +2,7 @@ package org.example.proyectofinal.repositories;
 
 import org.example.proyectofinal.HibernateUtil;
 import org.example.proyectofinal.entities.Juego;
+import org.example.proyectofinal.entities.Jugador;
 import org.example.proyectofinal.entities.Partida;
 import org.hibernate.Session;
 
@@ -43,6 +44,41 @@ public class PartidaRepository {
 
     public List<Partida> findAll() {
         return sesion.createQuery("Select p From Partida p", Partida.class).getResultList();
+    }
+
+    /**
+     * Partidas que ha jugado un jugador
+     * ESTE MÉTODO CON MUCHOS DATOS ES MUY LENTO -----------------------------
+     * @param idJugador
+     * @return
+     */
+    public Long totalPartidasJugadas(Long idJugador) {
+        /*
+        //ESTO VA LENTO PORQUE p.getJugadores() SE TRANSFORMA EN UN JOIN QUE SE
+        //EJECUTA TANTAS VECES COMO PARTIDAS HAY
+        List<Partida> partidas = findAll();
+        return partidas.stream()
+                .filter(p -> p.getJugadores().stream()
+                        .anyMatch(j -> j.getId() == idJugador))
+                .distinct()
+                .count();
+        */
+
+        return sesion.createQuery("SELECT COUNT(p) FROM Partida p JOIN p.jugadores j WHERE j.id = :jugadorId", Partida.class)
+                .setParameter("jugadorId", idJugador )
+                .getResultCount();
+    }
+
+    /**
+     * Cuántas partidas hay de un juego determinado
+     * @param idJuego
+     * @return
+     */
+    public Long totalPartidasDeUnJuego(Long idJuego) {
+        List<Partida> partidas = findAll();
+        return partidas.stream()
+                .filter(p -> p.getJuego().getId() == idJuego)
+                .count();
     }
 
 }

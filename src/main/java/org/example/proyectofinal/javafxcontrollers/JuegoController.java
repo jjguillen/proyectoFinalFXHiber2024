@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import org.example.proyectofinal.Principal;
 import org.example.proyectofinal.entities.Juego;
+import org.example.proyectofinal.entities.Jugador;
 import org.example.proyectofinal.repositories.JuegoRepository;
 
 import java.io.IOException;
@@ -21,6 +22,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.proyectofinal.repositories.PartidaRepository;
 
 public class JuegoController implements Initializable {
 
@@ -73,8 +75,28 @@ public class JuegoController implements Initializable {
                 tableJuegos.refresh();
             }
         });
-        MenuItem itemUpdate = new MenuItem("Modificar");
-        contextMenu.getItems().addAll(itemDelete, itemUpdate);
+
+        MenuItem itemEstadisticasJuego = new MenuItem("Estadísticas");
+        itemEstadisticasJuego.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                //Mostrar Dialog con las partidas que hay de un juego
+                Juego juegoEstadisticas = tableJuegos.getSelectionModel().getSelectedItem();
+                PartidaRepository pr = new PartidaRepository();
+
+                //Abrir Alert para pintar los datos
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Partidas que hay de este juego");
+                alert.setHeaderText(null);
+                alert.setContentText("El número de partidas del juego "
+                        + juegoEstadisticas.getNombre() + " es: " +
+                        pr.totalPartidasDeUnJuego(juegoEstadisticas.getId()));
+
+                // Mostrar el diálogo y esperar a que el usuario lo cierre
+                alert.showAndWait();
+            }
+        });
+
+        contextMenu.getItems().addAll(itemDelete, itemEstadisticasJuego);
         tableJuegos.setContextMenu(contextMenu);
 
     }

@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -19,6 +16,7 @@ import org.example.proyectofinal.entities.Juego;
 import org.example.proyectofinal.entities.Jugador;
 import org.example.proyectofinal.repositories.JuegoRepository;
 import org.example.proyectofinal.repositories.JugadorRepository;
+import org.example.proyectofinal.repositories.PartidaRepository;
 
 import java.io.IOException;
 import java.net.URL;
@@ -82,8 +80,26 @@ public class JugadorController implements Initializable  {
                 tableJugadores.refresh();
             }
         });
-        MenuItem itemUpdate = new MenuItem("Modificar");
-        contextMenu.getItems().addAll(itemDelete, itemUpdate);
+        MenuItem itemEstadisticasJugador = new MenuItem("Estadísticas");
+        itemEstadisticasJugador.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                //Mostrar Dialog con las partidas que ha jugado y el porcentaje de victorias
+                Jugador jugadorEstadisticas = tableJugadores.getSelectionModel().getSelectedItem();
+                PartidaRepository pr = new PartidaRepository();
+
+                //Abrir Alert para pintar los datos
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Partidas a las que juega este jugador");
+                alert.setHeaderText(null);
+                alert.setContentText("El número de partidas es: " +
+                        pr.totalPartidasJugadas(jugadorEstadisticas.getId()));
+
+                // Mostrar el diálogo y esperar a que el usuario lo cierre
+                alert.showAndWait();
+            }
+        });
+
+        contextMenu.getItems().addAll(itemDelete, itemEstadisticasJugador);
         tableJugadores.setContextMenu(contextMenu);
 
     }
