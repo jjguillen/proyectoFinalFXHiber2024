@@ -65,6 +65,8 @@ public class PartidaController implements Initializable  {
         Principal.setRoot("partidas-view");
     }
 
+    private ComboBox<Partida> comboPartidas;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Llamar a Hibernate para traer las partidas
@@ -131,6 +133,7 @@ public class PartidaController implements Initializable  {
         });
         contextMenu.getItems().addAll(itemDelete, itemUpdate,itemAddJugador);
         tablePartida.setContextMenu(contextMenu);
+
     }
 
     @FXML

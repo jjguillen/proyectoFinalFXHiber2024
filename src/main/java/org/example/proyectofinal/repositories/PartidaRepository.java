@@ -53,9 +53,10 @@ public class PartidaRepository {
      * @return
      */
     public Long totalPartidasJugadas(Long idJugador) {
-        /*
+
         //ESTO VA LENTO PORQUE p.getJugadores() SE TRANSFORMA EN UN JOIN QUE SE
         //EJECUTA TANTAS VECES COMO PARTIDAS HAY
+        /*
         List<Partida> partidas = findAll();
         return partidas.stream()
                 .filter(p -> p.getJugadores().stream()
@@ -64,9 +65,22 @@ public class PartidaRepository {
                 .count();
         */
 
+        List<Partida> partidas = sesion.createQuery(
+                "SELECT p FROM Partida p JOIN FETCH p.jugadores",
+                Partida.class
+        ).getResultList();
+
+       return partidas.stream()
+                .filter(p -> p.getJugadores().stream()
+                        .anyMatch(j -> j.getId() == idJugador))
+                .distinct()
+                .count();
+
+        /*
         return sesion.createQuery("SELECT COUNT(p) FROM Partida p JOIN p.jugadores j WHERE j.id = :jugadorId", Partida.class)
                 .setParameter("jugadorId", idJugador )
                 .getResultCount();
+        */
     }
 
     /**
