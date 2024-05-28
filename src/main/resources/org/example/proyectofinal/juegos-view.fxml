@@ -16,13 +16,13 @@
             <Menu mnemonicParsing="false" text="JUGADORES">
                 <items>
                     <MenuItem mnemonicParsing="false" onAction="#toJugadores" text="Ver todos" />
-                    <MenuItem mnemonicParsing="false" text="Insertar" disable="true" />
+                    <MenuItem disable="true" mnemonicParsing="false" text="Insertar" />
                 </items>
             </Menu>
             <Menu mnemonicParsing="false" text="PARTIDAS">
                 <items>
                     <MenuItem mnemonicParsing="false" onAction="#toPartidas" text="Ver todos" />
-                    <MenuItem mnemonicParsing="false" text="Insertar" disable="true" />
+                    <MenuItem disable="true" mnemonicParsing="false" text="Insertar" />
                 </items>
             </Menu>
         </menus>
@@ -40,6 +40,10 @@
                <TableColumn fx:id="juegoPegi" prefWidth="50.0" text="Pegi" />
                <TableColumn fx:id="juegoCategoria" prefWidth="125" text="Categoria" />
            </columns>
+            <columnResizePolicy>
+               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+             
          </TableView>
       </children>
    </VBox>

@@ -10,7 +10,7 @@
          <Menu mnemonicParsing="false" text="JUEGOS">
              <items>
                  <MenuItem mnemonicParsing="false" onAction="#toJuegos" text="Ver todos" />
-                 <MenuItem mnemonicParsing="false" text="Insertar" disable="true" />
+                 <MenuItem disable="true" mnemonicParsing="false" text="Insertar" />
              </items>
          </Menu>
          <Menu mnemonicParsing="false" text="JUGADORES">
@@ -22,7 +22,7 @@
          <Menu mnemonicParsing="false" text="PARTIDAS">
              <items>
                  <MenuItem mnemonicParsing="false" onAction="#toPartidas" text="Ver todos" />
-                 <MenuItem mnemonicParsing="false" text="Insertar" disable="true" />
+                 <MenuItem disable="true" mnemonicParsing="false" text="Insertar" />
              </items>
          </Menu>
      </menus>
@@ -42,6 +42,9 @@
                   <TableColumn fx:id="jugadorIdioma" prefWidth="100.0" text="Idioma" />
                   <TableColumn fx:id="jugadorPais" prefWidth="100.0" text="Pais" />
               </columns>
+            <columnResizePolicy>
+               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
           </TableView>
       </children>
    </VBox>
